@@ -798,6 +798,9 @@ class ProductVariantBulkCreate(BaseMutation):
             cls.get_node_or_error(info, data["product_id"], only_type="Product"),
         )
         error_policy = data["error_policy"]
+        # Default value is the name not value due to a bug in graphql-core
+        if error_policy == ErrorPolicyEnum.REJECT_EVERYTHING.name:
+            error_policy = ErrorPolicyEnum.REJECT_EVERYTHING.value
         errors: dict = defaultdict(list)
         index_error_map: dict = defaultdict(list)
 

@@ -626,6 +626,9 @@ class ProductVariantBulkUpdate(BaseMutation):
     def perform_mutation(cls, _root, info, **data):
         index_error_map: dict = defaultdict(list)
         error_policy = data["error_policy"]
+        # Default value is the name not value due to a bug in graphql-core
+        if error_policy == ErrorPolicyEnum.REJECT_EVERYTHING.name:
+            error_policy = ErrorPolicyEnum.REJECT_EVERYTHING.value
         product = cast(
             models.Product,
             cls.get_node_or_error(info, data["product_id"], only_type="Product"),
