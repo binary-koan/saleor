@@ -128,7 +128,7 @@ class ProductVariantBulkUpdate(BaseMutation):
         )
         error_policy = ErrorPolicyEnum(
             required=False,
-            default_value=ErrorPolicyEnum.REJECT_EVERYTHING.value,
+            default_value=ErrorPolicyEnum.REJECT_EVERYTHING.name,
             description=(
                 "Policies of error handling. DEFAULT: "
                 + ErrorPolicyEnum.REJECT_EVERYTHING.name
